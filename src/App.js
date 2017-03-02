@@ -1,23 +1,18 @@
 import React, { Component } from 'react'
-import './App.css'
+import './App.sass'
+import Subs from './Subs'
+
+const subreddits = ['webdev', 'javascript', 'argentina', 'technology', 'oculus']
 
 export default class App extends Component {
   render () {
+
     return (
       <div className='App'>
         <div className='Header'>
           Reddit Diet
         </div>
-        <div className='Subs'>
-          <ul className='SubsList'>
-            <li>
-              <h3>/r/webdev</h3>
-              <ul className='Posts'>
-
-              </ul>
-            </li>
-          </ul>
-        </div>
+        <Subs subreddits={subreddits}/>
         <div className='PostFrame'>
           <iframe></iframe>
         </div>
