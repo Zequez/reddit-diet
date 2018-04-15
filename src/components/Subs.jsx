@@ -12,11 +12,12 @@ export default class Subs extends React.Component {
     onMarkAsRead: t.func.isRequired,
     onOpenPost: t.func.isRequired,
     mode: t.string.isRequired,
-    readPostsMode: t.bool.isRequired
+    readPostsMode: t.bool.isRequired,
+    postsPerSub: t.number.isRequired,
   }
 
   render () {
-    let { mode, readPostsMode, subreddits, markedAsRead, onMarkAsRead, onOpenPost } = this.props
+    let { mode, readPostsMode, subreddits, markedAsRead, onMarkAsRead, onOpenPost, postsPerSub } = this.props
 
     return (
       <div className={th.Subs}>
@@ -28,7 +29,7 @@ export default class Subs extends React.Component {
               markedAsRead={markedAsRead}
               onMarkAsRead={onMarkAsRead}
               onOpenPost={onOpenPost}
-              limit={10}
+              limit={postsPerSub}
               mode={mode}
               readPostsMode={readPostsMode}/>
           ))}

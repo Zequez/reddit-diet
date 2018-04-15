@@ -26,7 +26,7 @@ export default class Sub extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    if (props.mode !== this.props.mode) {
+    if (props.mode !== this.props.mode || props.limit !== this.props.limit) {
       this.fetchPosts(props)
     }
   }

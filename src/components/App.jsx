@@ -13,8 +13,9 @@ export default class App extends Component {
       mode: 'top_week',
       readPostsMode: true,
       configVisible: true,
-      subs: ['argentina', 'javascript', 'webdev'],
-      markedAsRead: []
+      subs: ['argentina', 'worldnews', 'webdev'],
+      markedAsRead: [],
+      postsPerSub: 10
     },
     settingsLoaded: false
   }
@@ -75,6 +76,7 @@ export default class App extends Component {
             markedAsRead={settings.markedAsRead}
             readPostsMode={settings.readPostsMode}
             mode={settings.mode}
+            postsPerSub={settings.postsPerSub}
             onMarkAsRead={this.markAsRead}
             onOpenPost={this.openPost}/>
         </div>
