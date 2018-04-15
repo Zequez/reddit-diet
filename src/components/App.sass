@@ -6,18 +6,19 @@
     display: flex
     flex-direction: column
     height: 100%
-    width: $gg * 10
-    border-right: solid 1px grey
+    width: 30%
+    max-width: $g * 80
+    min-width: $g * 40
     overflow-y: auto
 
 .Header
+  padding: 0 $g
   height: $gg
   line-height: $gg
-  h1
-    font-size: $g*3
 
 .PostFrame
   flex-grow: 1
+  background: lighten($colorBg, 2%)
   iframe
     width: 100%
     height: 100%

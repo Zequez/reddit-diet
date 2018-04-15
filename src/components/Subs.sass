@@ -4,10 +4,17 @@
 .SubsList
 
 .__modes
+  display: flex
+
 .__mode
-  border: solid 1px darken($colorMain, 10%)
+  flex-grow: 1
+  height: $lineHeight*2
+  border: none
   background: $colorMain
-  &_active
+  font-size: $g*2
+  color: $colorBg
+  &_active, &:hover
     background: lighten($colorMain, 10%)
+    cursor: pointer
   &:focus
     outline: none

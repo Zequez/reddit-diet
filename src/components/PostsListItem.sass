@@ -1,40 +1,57 @@
 .PostsListItem
-  display: flex
-  margin-bottom: $g
+  font-size: $g*2
+  a
+    display: flex
+    height: 100%
+    width: 100%
+    color: $colorFont
+    &:hover
+      background-color: rgba(#000, 0.1)
+      text-decoration: none
 
 .__read
   opacity: 0.25
 
 .__img
   float: left
-  height: $g*3
+  height: 100%
   flex: 0 0 $g*3
   margin-right: $g/2
   display: flex
   justify-content: center
   align-items: center
+  background: darken($colorBg, 5%)
   img
     max-width: 100%
     max-height: 100%
 
 .__scores
   float: left
-  height: $g*3
-  flex: 0 0 $g*5
-  line-height: $g*3 / 2
+  height: 100%
+  flex: 0 0 $g*7
+  margin-right: $g
+  line-height: $lineHeight / 2
   white-space: nowrap
   overflow: hidden
+  font-size: 75%
+  text-align: right
 
 .__score
-  margin-right: $g/2
   &:before
-    content: '🔺'
+    display: block
+    float: left
+    width: $g*2
+    content: '⬆'
 
 .__comments
-  margin-right: $g/2
   &:before
-    content: '💬'
+    display: block
+    float: left
+    width: $g*2
+    content: '▶'
 
 .__title
-  line-height: $g*3 / 2
   flex-grow: 1
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis

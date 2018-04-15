@@ -11,8 +11,12 @@ type Props = {
 }
 
 console.log(th)
-
-const MODES = ['hot', 'top_day', 'top_week', 'top_month']
+const MODES = {
+  hot: 'Hot',
+  top_day: 'Top Day',
+  top_week: 'Top Week',
+  top_month: 'Top Month'
+}
 
 export default class Subs extends React.Component {
   props : Props
@@ -32,12 +36,12 @@ export default class Subs extends React.Component {
     return (
       <div className={th.Subs}>
         <div className={th.__modes}>
-          {MODES.map((m) =>
+          {Object.keys(MODES).map((m) =>
             <button
               key={m}
               className={cx(th.__mode, {[th.__mode_active]: m === mode})}
               onClick={() => this.setMode(m)}>
-              {m}
+              {MODES[m]}
             </button>
           )}
         </div>

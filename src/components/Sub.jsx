@@ -61,6 +61,10 @@ export default class Sub extends React.Component {
     this.setState({forceShow: !this.state.forceShow})
   }
 
+  clickTitle = () => {
+    this.isAllRead() ? this.toggleForceShow() : this.markAllAsRead()
+  }
+
   render () {
     let { subreddit, onOpenPost, markedAsRead } = this.props
     let { posts, forceShow } = this.state
@@ -73,11 +77,11 @@ export default class Sub extends React.Component {
 
     return (
       <li className={classNames}>
-        <h3>
+        <h3 onClick={this.clickTitle}>
+          <span className={th.__titleIcon}>
+            {allRead ? (forceShow ? '-' : '+') : '◉'}
+          </span>
           /r/{subreddit}
-          {allRead
-            ? <button onClick={this.toggleForceShow}>Toggle</button>
-            : <button onClick={this.markAllAsRead}>Read</button>}
         </h3>
         {!allRead || forceShow ? (
           <ul className={th.PostsList}>
