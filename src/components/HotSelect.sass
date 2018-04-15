@@ -1,0 +1,28 @@
+.HotSelect
+  display: flex
+  height: $lineHeight*2
+  padding: $g
+
+.__label
+  margin-right: $g
+  line-height: $g * 4
+.__options
+  flex-grow: 1
+  display: flex
+
+.__option
+  flex-grow: 1
+  height: $g * 4
+  border: none
+  border-radius: 0
+  background: $colorMain
+  color: $colorBg
+  &:last-child
+    border-radius: 0 2px 2px 0
+  &:first-child
+    border-radius: 2px 0 0 2px
+  &_active, &:hover
+    background: lighten($colorMain, 10%)
+    cursor: pointer
+  &:focus
+    outline: none

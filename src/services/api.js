@@ -4,16 +4,6 @@ import unique from 'array-unique'
 // want to use a backend to be able to sync with mobile.
 
 const Api = {
-  markedAsRead: {
-    add: (postId) => {
-      return Api.markedAsRead.list().then((list) => {
-        list = unique(list.concat(postId)) // super lazy, I know
-        localStorage.setItem('markedAsRead', JSON.stringify(list))
-        return list
-      })
-    },
-    list: () => Promise.resolve(JSON.parse(localStorage.getItem('markedAsRead') || '[]'))
-  },
   userSettings: {
     get: () => Promise.resolve(JSON.parse(localStorage.getItem('userSettings') || '{}')),
     set: (settings) => {

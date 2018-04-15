@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import cx from 'classnames'
 import th from './App.sass'
 import Api from '../services/api'
 import Url from '../services/url'
@@ -7,34 +8,37 @@ import Subs from './Subs'
 
 export default class App extends Component {
   state = {
-    markedAsRead: [],
     currentPostUrl: null,
     settings: {
       mode: 'top_week',
       readPostsMode: true,
       configVisible: true,
-      subs: ['argentina', 'javascript', 'webdev']
+      subs: ['argentina', 'javascript', 'webdev'],
+      markedAsRead: []
     },
     settingsLoaded: false
   }
 
   componentWillMount () {
-    Api.markedAsRead.list().then((markedAsRead) => this.setState({markedAsRead}))
     Api.userSettings.get().then((settings) => {
-      if (settings && settings.subs) {
-        this.setState({settingsLoaded: true, settings})
-      } else {
-        Api.userSettings.set(settings)
-        this.setState({settingsLoaded: true})
-      }
+      Object.keys(this.state.settings).forEach((k) => {
+        if (settings[k] == null) settings[k] = this.state.settings[k]
+      })
+      this.setState({settingsLoaded: true, settings})
+      Api.userSettings.set(settings)
     })
   }
 
-  markAsRead = (postId) => {
-    let markedAsRead = this.state.markedAsRead.concat(postId)
-    Api.markedAsRead.add(postId)
+  markAsRead = (postsId) => {
+    postsId = postsId instanceof Array ? postsId : [postsId]
 
-    this.setState({markedAsRead})
+    let markedAsRead = this.state.settings.markedAsRead.concat([])
+
+    postsId.forEach((postId) => {
+      if (!~markedAsRead.indexOf(postId)) { markedAsRead.push(postId) }
+    })
+
+    this.setSetting('markedAsRead', markedAsRead)
   }
 
   openPost = (postId, postUrl) => {
@@ -49,15 +53,15 @@ export default class App extends Component {
   }
 
   render () {
-    let { settings, markedAsRead, currentPostUrl, settingsLoaded } = this.state
+    let { settings, currentPostUrl, settingsLoaded } = this.state
     return settingsLoaded ? (
       <div className={th.App}>
         <div className={th.App__sidebar}>
           <div className={th.Header}>
             <button
-              className={th.Header__configButton}
+              className={cx(th.Header__configButton, {toggled: settings.configVisible})}
               onClick={() => this.setSetting('configVisible', !settings.configVisible)}>
-              +
+              ⊛
             </button>
             <h1>Reddit Diet</h1>
           </div>
@@ -68,7 +72,7 @@ export default class App extends Component {
           ) : null}
           <Subs
             subreddits={settings.subs}
-            markedAsRead={markedAsRead}
+            markedAsRead={settings.markedAsRead}
             readPostsMode={settings.readPostsMode}
             mode={settings.mode}
             onMarkAsRead={this.markAsRead}

@@ -21,5 +21,55 @@
       text-decoration: underline
 
   input, button
+    height: $g*4
+    margin: 0
+    padding: 0 $g
+
     &:focus
       outline: none
+
+  input, button, input[type="checkbox"]:after
+    border: solid 1px #c5c5c5
+    border-radius: 2px
+    background: white
+
+  input
+    box-shadow: inset 0 2px 5px rgba(#000, 0.15)
+    font-size: $g*2
+
+  input[type="checkbox"]
+    -webkit-appearance: none
+    margin: 0 $g 0 0
+    padding: 0
+    border: none
+    background: none
+    box-shadow: none
+    color: $colorFont
+    cursor: pointer
+    &:after
+      display: block
+      content: '×'
+      width: $g*3
+      height: $g*3
+      box-shadow: inset 0 2px 5px rgba(#000, 0.15)
+      text-align: center
+      line-height: $g*3 - 2px
+      font-size: 20px
+    &:checked:after
+      content: '✔'
+      line-height: $g*3
+      font-size: 14px
+
+  button
+    box-shadow: inset 0 -3px 6px rgba(#000, 0.05), 0 2px 3px rgba(#000, 0.05)
+    font-size: $g*1.5
+    cursor: pointer
+    &:hover
+      background: darken(white, 3%)
+    &:active
+      box-shadow: inset 0 3px 6px rgba(#000, 0.05)
+    &.toggled
+      // border-color: #ddd
+      background: darken(white, 5%)
+      box-shadow: inset 0 3px 9px rgba(#000, 0.09)
+      color: lighten($colorFont, 5%)
