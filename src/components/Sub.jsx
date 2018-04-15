@@ -86,10 +86,11 @@ export default class Sub extends React.Component {
     return posts.every((p) => ~markedAsRead.indexOf(p.id))
   }
 
-  markAllAsRead = () => {
+  markAllAsRead = (ev) => {
     let ids = this.state.posts.map((p) => p.id)
     this.props.onMarkAsRead(ids)
     this.setState({forceShow: false})
+    ev.stopPropagation()
   }
 
   toggleForceShow = () => {
@@ -114,19 +115,17 @@ export default class Sub extends React.Component {
 
     return (
       <li className={classNames}>
-        <h3>
-          <span onClick={this.toggleForceShow}>
-            <span className={th.__titleIcon}>
-              {allRead ? (forceShow ? '-' : '+') : '○'}
-            </span>
-            /r/{advancedSub.subreddit}
-            &nbsp;
-            <span className={th.__titleSubRefine}>
-              {advancedSub.mode ?
-                (advancedSub.mode[0].toUpperCase() + advancedSub.mode.toLowerCase().slice(1))
-              : null}
-              {advancedSub.limit ? (' #' + advancedSub.limit) : null}
-            </span>
+        <h3 onClick={this.toggleForceShow}>
+          <span className={th.__titleIcon}>
+            {allRead ? (forceShow ? '-' : '+') : '○'}
+          </span>
+          /r/{advancedSub.subreddit}
+          &nbsp;
+          <span className={th.__titleSubRefine}>
+            {advancedSub.mode ?
+              (advancedSub.mode[0].toUpperCase() + advancedSub.mode.toLowerCase().slice(1))
+            : null}
+            {advancedSub.limit ? (' #' + advancedSub.limit) : null}
           </span>
           {!allRead ? (
             <button onClick={this.markAllAsRead}>Mark All As Read</button>
