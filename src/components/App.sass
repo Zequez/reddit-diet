@@ -1,0 +1,29 @@
+.App
+  display: flex
+  height: 100%
+
+  &__sidebar
+    display: flex
+    flex-direction: column
+    height: 100%
+    width: $gg * 10
+    border-right: solid 1px grey
+    overflow-y: auto
+
+.Header
+  height: $gg
+  line-height: $gg
+  h1
+    font-size: $g*3
+
+.Subs
+  flex-grow: 1
+
+.PostsList
+  font-size: 12px
+
+.PostFrame
+  flex-grow: 1
+  iframe
+    width: 100%
+    height: 100%

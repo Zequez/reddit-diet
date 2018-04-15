@@ -1,0 +1,42 @@
+$g: 8px
+
+.PostsListItem
+  display: flex
+  margin-bottom: $g
+
+  &_read
+    opacity: 0.25
+
+  &__img
+    float: left
+    height: $g*3
+    flex: 0 0 $g*3
+    margin-right: $g/2
+    display: flex
+    justify-content: center
+    align-items: center
+    img
+      max-width: 100%
+      max-height: 100%
+
+  &__scores
+    float: left
+    height: $g*3
+    flex: 0 0 $g*5
+    line-height: $g*3 / 2
+    white-space: nowrap
+    overflow: hidden
+
+  &__score
+    margin-right: $g/2
+    &:before
+      content: '🔺'
+
+  &__comments
+    margin-right: $g/2
+    &:before
+      content: '💬'
+
+  &__title
+    line-height: $g*3 / 2
+    flex-grow: 1
