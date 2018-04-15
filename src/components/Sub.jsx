@@ -1,5 +1,5 @@
 import React from 'react'
-import './Sub.sass'
+import th from './Sub.sass'
 import cx from 'classnames'
 import PostsListItem from './PostsListItem'
 
@@ -67,8 +67,8 @@ export default class Sub extends React.Component {
 
     let allRead = this.isAllRead()
 
-    let classNames = cx('Sub', {
-      Sub__allRead: allRead
+    let classNames = cx(th.Sub, {
+      [th.__allRead]: allRead
     })
 
     return (
@@ -80,7 +80,7 @@ export default class Sub extends React.Component {
             : <button onClick={this.markAllAsRead}>Read</button>}
         </h3>
         {!allRead || forceShow ? (
-          <ul className='PostsList'>
+          <ul className={th.PostsList}>
             {posts.map((post) => (
               <PostsListItem
                 key={post.id}

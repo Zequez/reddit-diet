@@ -25,12 +25,12 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader', {
-          loader: 'sass-resources-loader',
-          options: {
-            resources: ['./src/vars.sass']
-          }
-        }]
+        use: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:3]',
+          'sass-loader',
+          'sass-resources-loader?resources=./src/vars.sass'
+        ]
       }
     ]
   },

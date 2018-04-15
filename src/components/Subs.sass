@@ -1,8 +1,13 @@
 .Subs
-  &__mode
-    border: solid 1px SteelBlue
-    background: LightSteelBlue
-    &_active
-      background: LightSlateGrey
-    &:focus
-      outline: none
+  flex-grow: 1
+
+.SubsList
+
+.__modes
+.__mode
+  border: solid 1px darken($colorMain, 10%)
+  background: $colorMain
+  &_active
+    background: lighten($colorMain, 10%)
+  &:focus
+    outline: none

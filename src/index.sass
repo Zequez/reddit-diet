@@ -1,19 +1,20 @@
 @import "reset.scss"
 
-$g: 8px
+\:global
+  #main
+    overflow: hidden
 
-#main
-  overflow: hidden
+  html, body, #main
+    height: 100%
 
-html, body, #main
-  height: 100%
+  body
+    background: $colorBg
+    color: $colorFont
+    font-family: sans-serif
+    line-height: $g*3
 
-body
-  font-family: sans-serif
-  line-height: $g*3
-
-a
-  color: DodgerBlue
-  text-decoration: none
-  &:hover
-    text-decoration: underline
+  a
+    color: $colorHigh
+    text-decoration: none
+    &:hover
+      text-decoration: underline

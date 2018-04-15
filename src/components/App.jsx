@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './App.sass'
+import th from './App.sass'
 import Api from '../services/api'
 import Url from '../services/url'
 import Subs from './Subs'
@@ -32,9 +32,9 @@ export default class App extends Component {
     let { subreddits, markedAsRead, currentPostUrl } = this.state
 
     return (
-      <div className='App'>
-        <div className='App__sidebar'>
-          <div className='Header'>
+      <div className={th.App}>
+        <div className={th.App__sidebar}>
+          <div className={th.Header}>
             <h1>Reddit Diet</h1>
           </div>
           <Subs
@@ -43,7 +43,7 @@ export default class App extends Component {
             onMarkAsRead={this.markAsRead}
             onOpenPost={this.openPost}/>
         </div>
-        <div className='PostFrame'>
+        <div className={th.PostFrame}>
           <iframe src={currentPostUrl}></iframe>
         </div>
       </div>

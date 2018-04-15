@@ -1,6 +1,6 @@
+import th from  './Subs.sass'
 import React from 'react'
 import cx from 'classnames'
-import './Subs.sass'
 import Sub from './Sub'
 
 type Props = {
@@ -9,6 +9,8 @@ type Props = {
   onMarkAsRead: Function,
   onOpenPost: Function
 }
+
+console.log(th)
 
 const MODES = ['hot', 'top_day', 'top_week', 'top_month']
 
@@ -28,18 +30,18 @@ export default class Subs extends React.Component {
     let { mode } = this.state
 
     return (
-      <div className='Subs'>
-        <div className='Subs__modes'>
+      <div className={th.Subs}>
+        <div className={th.__modes}>
           {MODES.map((m) =>
             <button
               key={m}
-              className={cx('Subs__mode', {Subs__mode_active: m === mode})}
+              className={cx(th.__mode, {[th.__mode_active]: m === mode})}
               onClick={() => this.setMode(m)}>
               {m}
             </button>
           )}
         </div>
-        <ul className='SubsList'>
+        <ul className={th.SubsList}>
           {subreddits.map((sub) => (
             <Sub
               key={sub}
