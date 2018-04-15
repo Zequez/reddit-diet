@@ -48,9 +48,11 @@ export default class Sub extends React.Component {
     if (props.mode !== this.props.mode || props.limit !== this.props.limit) {
       this.fetchPosts(props)
     }
+    if (props.markedAsRead !== this.props.markedAsRead) {
+      let isAllRead = this.isAllRead(this.state.posts, props.markedAsRead)
+      this.setState({forceShow: !isAllRead})
+    }
   }
-
-
 
   fetchPosts (props = this.props) {
     let { limit, mode, subreddit } = props
@@ -71,18 +73,23 @@ export default class Sub extends React.Component {
 
     fetch(url.join(''))
       .then((data) => data.json())
-      .then((data) => this.setState({
-        posts: data.data.children.map((p) => p.data)
-      }))
+      .then((data) => {
+        let posts = data.data.children.map((p) => p.data)
+        this.setState({
+          posts,
+          forceShow: !this.isAllRead(posts)
+        })
+      })
   }
 
-  isAllRead () {
-    return this.state.posts.every((p) => ~this.props.markedAsRead.indexOf(p.id))
+  isAllRead (posts = this.state.posts, markedAsRead = this.props.markedAsRead) {
+    return posts.every((p) => ~markedAsRead.indexOf(p.id))
   }
 
   markAllAsRead = () => {
     let ids = this.state.posts.map((p) => p.id)
     this.props.onMarkAsRead(ids)
+    this.setState({forceShow: false})
   }
 
   toggleForceShow = () => {
@@ -107,18 +114,23 @@ export default class Sub extends React.Component {
 
     return (
       <li className={classNames}>
-        <h3 onClick={this.clickTitle}>
-          <span className={th.__titleIcon}>
-            {allRead ? (forceShow ? '-' : '+') : '○'}
+        <h3>
+          <span onClick={this.toggleForceShow}>
+            <span className={th.__titleIcon}>
+              {allRead ? (forceShow ? '-' : '+') : '○'}
+            </span>
+            /r/{advancedSub.subreddit}
+            &nbsp;
+            <span className={th.__titleSubRefine}>
+              {advancedSub.mode ? advancedSub.mode : null}
+              {advancedSub.limit ? ('#' + advancedSub.limit) : null}
+            </span>
           </span>
-          /r/{advancedSub.subreddit}
-          &nbsp;
-          <span className={th.__titleSubRefine}>
-            {advancedSub.mode ? advancedSub.mode : null}
-            {advancedSub.limit ? ('#' + advancedSub.limit) : null}
-          </span>
+          {!allRead ? (
+            <button onClick={this.markAllAsRead}>Mark All As Read</button>
+          ) : null}
         </h3>
-        {!allRead || forceShow ? (
+        {forceShow ? (
           <ul className={th.PostsList}>
             {posts.map((post) => this.renderPost(post))}
           </ul>
