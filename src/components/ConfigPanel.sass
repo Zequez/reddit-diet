@@ -1,0 +1,66 @@
+.ConfigPanel
+  font-size: $g*2
+
+.__modes
+  display: flex
+  height: $lineHeight*2
+  padding: $g
+
+.__mode
+  flex-grow: 1
+  height: $g * 4
+  border: none
+  background: $colorMain
+  color: $colorBg
+  &:last-child
+    border-radius: 0 2px 2px 0
+  &:first-child
+    border-radius: 2px 0 0 2px
+  &_active, &:hover
+    background: lighten($colorMain, 10%)
+    cursor: pointer
+  &:focus
+    outline: none
+
+.__subs
+  line-height: $lineHeight*2
+  display: flex
+  div
+    padding: 0 $g
+  input
+    display: block
+    flex-grow: 1
+    height: $g * 4
+    margin: $g $g 0 0
+    padding: 0 $g
+    border: solid 1px #c5c5c5
+    border-radius: 2px
+    font-size: $g*2
+    box-shadow: inset 0 2px 5px rgba(#000, 0.15)
+
+.__readPostsMode
+  display: flex
+  align-items: center
+  padding-left: $g
+  cursor: pointer
+  input
+    -webkit-appearance: none
+    margin: 0 $g 0 0
+    &:after
+      display: block
+      content: '×'
+      width: $g*3
+      height: $g*3
+      border: solid 1px rgba(#000, 0.25)
+      border-radius: 2px
+      background: white
+      box-shadow: inset 0 2px 5px rgba(#000, 0.15)
+      text-align: center
+      line-height: $g*3 - 2px
+      font-size: 20px
+    &:checked:after
+      content: '✔'
+      line-height: $g*3
+      font-size: 14px
+  span
+    flex-grow: 1

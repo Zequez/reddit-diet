@@ -1,50 +1,25 @@
-import th from  './Subs.sass'
 import React from 'react'
+import t from 'prop-types';
 import cx from 'classnames'
+
+import th from  './Subs.sass'
 import Sub from './Sub'
 
-type Props = {
-  subreddits: String[],
-  markedAsRead: String[],
-  onMarkAsRead: Function,
-  onOpenPost: Function
-}
-
-console.log(th)
-const MODES = {
-  hot: 'Hot',
-  top_day: 'Top Day',
-  top_week: 'Top Week',
-  top_month: 'Top Month'
-}
-
 export default class Subs extends React.Component {
-  props : Props
-
-  state = {
-    mode: 'top_week'
-  }
-
-  setMode = (mode) => {
-    this.setState({mode: mode})
+  props: {
+    subreddits: t.array.isRequired,
+    markedAsRead: t.array.isRequired,
+    onMarkAsRead: t.func.isRequired,
+    onOpenPost: t.func.isRequired,
+    mode: t.string.isRequired,
+    readPostsMode: t.bool.isRequired
   }
 
   render () {
-    let { subreddits, markedAsRead, onMarkAsRead, onOpenPost } = this.props
-    let { mode } = this.state
+    let { mode, readPostsMode, subreddits, markedAsRead, onMarkAsRead, onOpenPost } = this.props
 
     return (
       <div className={th.Subs}>
-        <div className={th.__modes}>
-          {Object.keys(MODES).map((m) =>
-            <button
-              key={m}
-              className={cx(th.__mode, {[th.__mode_active]: m === mode})}
-              onClick={() => this.setMode(m)}>
-              {MODES[m]}
-            </button>
-          )}
-        </div>
         <ul className={th.SubsList}>
           {subreddits.map((sub) => (
             <Sub
@@ -54,7 +29,8 @@ export default class Subs extends React.Component {
               onMarkAsRead={onMarkAsRead}
               onOpenPost={onOpenPost}
               limit={10}
-              mode={mode}/>
+              mode={mode}
+              readPostsMode={readPostsMode}/>
           ))}
         </ul>
       </div>

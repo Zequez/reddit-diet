@@ -9,12 +9,24 @@
     width: 30%
     max-width: $g * 80
     min-width: $g * 40
+    border-right: solid 1px darken($colorBg, 10%)
     overflow-y: auto
 
+
 .Header
-  padding: 0 $g
+  padding-left: $g
   height: $gg
   line-height: $gg
+
+  &__configButton
+    float: right
+    display: block
+    height: 100%
+    width: $gg
+    border: 0
+    background-color: transparent
+    text-align: center
+    cursor: pointer
 
 .PostFrame
   flex-grow: 1

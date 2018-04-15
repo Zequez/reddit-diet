@@ -9,11 +9,12 @@ type Props = {
   onMarkAsRead: Function,
   onOpenPost: Function,
   limit: Number,
-  mode: 'hot' | 'top_day' | 'top_week' | 'top_month'
+  mode: 'hot' | 'top_day' | 'top_week' | 'top_month',
+  readPostsMode: Boolean
 }
 
 export default class Sub extends React.Component {
-  props : Props
+  props: Props
 
   state = {
     posts: [],
@@ -66,7 +67,7 @@ export default class Sub extends React.Component {
   }
 
   render () {
-    let { subreddit, onOpenPost, markedAsRead } = this.props
+    let { subreddit } = this.props
     let { posts, forceShow } = this.state
 
     let allRead = this.isAllRead()
@@ -85,16 +86,23 @@ export default class Sub extends React.Component {
         </h3>
         {!allRead || forceShow ? (
           <ul className={th.PostsList}>
-            {posts.map((post) => (
-              <PostsListItem
-                key={post.id}
-                post={post}
-                isRead={!!~markedAsRead.indexOf(post.id)}
-                onSelect={onOpenPost}/>
-            ))}
+            {posts.map((post) => this.renderPost(post))}
           </ul>
         ) : null}
       </li>
+    )
+  }
+
+  renderPost = (post) => {
+    let isRead = !!~this.props.markedAsRead.indexOf(post.id)
+    let readPostsMode = this.props.readPostsMode
+
+    return (isRead && !readPostsMode) ? null : (
+      <PostsListItem
+        key={post.id}
+        post={post}
+        isRead={isRead}
+        onSelect={this.props.onOpenPost}/>
     )
   }
 }

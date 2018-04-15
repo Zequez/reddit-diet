@@ -4,6 +4,8 @@ import cx from 'classnames'
 
 const redditUrl = (permalink) => `https://www.reddit.com${permalink}`
 
+const numberK = (num) => num > 1000 ? `${Math.round(num / 100) / 10}k` : num
+
 export default ({post, isRead, onSelect}) => {
   let onClickLink = (ev) => {
     ev.preventDefault()
@@ -26,10 +28,10 @@ export default ({post, isRead, onSelect}) => {
         </div>
         <div className={th.__scores}>
           <div className={th.__score} title='Upvotes'>
-            {post.score}
+            {numberK(post.score)}
           </div>
           <div className={th.__comments} title='Comments'>
-            {post.num_comments}
+            {numberK(post.num_comments)}
           </div>
         </div>
         <div className={th.__title} title={post.title}>
