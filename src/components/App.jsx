@@ -8,16 +8,26 @@ import Subs from './Subs'
 export default class App extends Component {
   state = {
     markedAsRead: [],
-    subreddits: [],
     currentPostUrl: null,
-    configVisible: false,
-    mode: 'top_week',
-    readPostsMode: true
+    settings: {
+      mode: 'top_week',
+      readPostsMode: true,
+      configVisible: true,
+      subs: ['argentina', 'javascript', 'webdev']
+    },
+    settingsLoaded: false
   }
 
   componentWillMount () {
-    this.setState({subreddits: Url.subreddits()})
     Api.markedAsRead.list().then((markedAsRead) => this.setState({markedAsRead}))
+    Api.userSettings.get().then((settings) => {
+      if (settings && settings.subs) {
+        this.setState({settingsLoaded: true, settings})
+      } else {
+        Api.userSettings.set(settings)
+        this.setState({settingsLoaded: true})
+      }
+    })
   }
 
   markAsRead = (postId) => {
@@ -32,37 +42,35 @@ export default class App extends Component {
     this.setState({currentPostUrl: postUrl})
   }
 
-  toggleConfig = () => { this.setState({configVisible: !this.state.configVisible}) }
-  setMode = (mode) => { this.setState({mode: mode}) }
-  setSubs = (subs) => { this.setState({subreddits: subs}) }
-  setReadPostsMode = (readPostsMode) => { this.setState({readPostsMode: readPostsMode}) }
+  setSetting = (setting, value) => {
+    let settings = {...this.state.settings, [setting]: value}
+    this.setState({settings})
+    Api.userSettings.set(settings)
+  }
 
   render () {
-    let { mode, subreddits, readPostsMode, markedAsRead, currentPostUrl, configVisible } = this.state
-
-    return (
+    let { settings, markedAsRead, currentPostUrl, settingsLoaded } = this.state
+    return settingsLoaded ? (
       <div className={th.App}>
         <div className={th.App__sidebar}>
           <div className={th.Header}>
-            <button className={th.Header__configButton} onClick={this.toggleConfig}>
-              ⚙︎
+            <button
+              className={th.Header__configButton}
+              onClick={() => this.setSetting('configVisible', !settings.configVisible)}>
+              +
             </button>
             <h1>Reddit Diet</h1>
           </div>
-          {configVisible ? (
+          {settings.configVisible ? (
             <ConfigPanel
-              mode={mode}
-              subs={subreddits}
-              readPostsMode={readPostsMode}
-              onModeChange={this.setMode}
-              onSubsChange={this.setSubs}
-              onReadPostsModeChange={this.setReadPostsMode}/>
+              onSettingChanges={this.setSetting}
+              settings={settings}/>
           ) : null}
           <Subs
-            subreddits={subreddits}
+            subreddits={settings.subs}
             markedAsRead={markedAsRead}
-            readPostsMode={readPostsMode}
-            mode={mode}
+            readPostsMode={settings.readPostsMode}
+            mode={settings.mode}
             onMarkAsRead={this.markAsRead}
             onOpenPost={this.openPost}/>
         </div>
@@ -70,6 +78,6 @@ export default class App extends Component {
           <iframe src={currentPostUrl}></iframe>
         </div>
       </div>
-    );
+    ) : null;
   }
 }

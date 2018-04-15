@@ -80,7 +80,7 @@ export default class Sub extends React.Component {
       <li className={classNames}>
         <h3 onClick={this.clickTitle}>
           <span className={th.__titleIcon}>
-            {allRead ? (forceShow ? '-' : '+') : '◉'}
+            {allRead ? (forceShow ? '-' : '+') : '○'}
           </span>
           /r/{subreddit}
         </h3>

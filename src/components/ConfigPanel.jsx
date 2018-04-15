@@ -11,13 +11,13 @@ const MODES = {
 }
 
 export default class ConfigPanel extends React.Component {
-  props: {
-    mode: t.string.isRequired,
-    subs: t.array.isRequired,
-    readPostsMode: t.bool.isRequired,
-    onModeChange: t.func,
-    onSubsChange: t.func,
-    onReadPostsModeChange: t.func
+  propTypes: {
+    // settings: t.shape({
+    //   mode: t.string.isRequired,
+    //   subs: t.array.isRequired,
+    //   readPostsMode: t.bool.isRequired,
+    // }),
+    onSettingChanges: t.func
   }
 
   state = {
@@ -25,17 +25,18 @@ export default class ConfigPanel extends React.Component {
   }
 
   componentWillMount () {
-    this.setState({subs: this.props.subs.join(', ')})
+    this.setState({subs: this.props.settings.subs.join(', ')})
   }
 
-  setSubs = (ev) => {
-    let subs = ev.target.value
-    this.setState({subs})
-    this.onSubsChange(subs.trim().split(/\s*,\s*/))
+  setSubs = (ev) => {this.setState({subs: ev.target.value})}
+
+  propagateSubs = (ev) => {
+    let subs = this.state.subs.trim().split(/\s*,\s*/).filter((v) => !!v)
+    this.props.onSettingChanges('subs', subs)
   }
 
   render () {
-    let { mode, readPostsMode } = this.props
+    let { mode, readPostsMode } = this.props.settings
     let { subs } = this.state
 
     return (
@@ -45,17 +46,20 @@ export default class ConfigPanel extends React.Component {
             <button
               key={m}
               className={cx(th.__mode, {[th.__mode_active]: m === mode})}
-              onClick={() => this.props.onModeChange(m)}>
+              onClick={() => this.props.onSettingChanges('mode', m)}>
               {MODES[m]}
             </button>
           )}
         </div>
         <div className={th.__subs}>
           <div>Subs</div>
-          <input type='text' value={this.state.subs} onChange={this.setSubs}/>
+          <input type='text' value={this.state.subs} onChange={this.setSubs} onBlur={this.propagateSubs}/>
         </div>
         <label className={th.__readPostsMode}>
-          <input type='checkbox' checked={readPostsMode} onChange={() => this.props.onReadPostsModeChange(!readPostsMode)}/>
+          <input
+            type='checkbox'
+            checked={readPostsMode}
+            onChange={() => this.props.onSettingChanges('readPostsMode', !readPostsMode)}/>
           <span>Fade out read posts</span>
         </label>
       </div>
