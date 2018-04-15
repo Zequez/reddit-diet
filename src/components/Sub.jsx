@@ -122,8 +122,10 @@ export default class Sub extends React.Component {
             /r/{advancedSub.subreddit}
             &nbsp;
             <span className={th.__titleSubRefine}>
-              {advancedSub.mode ? advancedSub.mode : null}
-              {advancedSub.limit ? ('#' + advancedSub.limit) : null}
+              {advancedSub.mode ?
+                (advancedSub.mode[0].toUpperCase() + advancedSub.mode.toLowerCase().slice(1))
+              : null}
+              {advancedSub.limit ? (' #' + advancedSub.limit) : null}
             </span>
           </span>
           {!allRead ? (
