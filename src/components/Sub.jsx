@@ -9,7 +9,7 @@ type Props = {
   onMarkAsRead: Function,
   onOpenPost: Function,
   limit: Number,
-  mode: 'hot' | 'top_day' | 'top_week' | 'top_month',
+  mode: 'hot' | 'day' | 'week' | 'month',
   readPostsMode: Boolean
 }
 
@@ -33,14 +33,24 @@ export default class Sub extends React.Component {
 
   fetchPosts (props = this.props) {
     let { limit, mode, subreddit } = props
-    let isTopMode = !!~['top_day', 'top_week', 'top_month'].indexOf(mode)
+    let isTopMode = !!~['day', 'week', 'month'].indexOf(mode)
     let url = ['https://www.reddit.com/r/']
+
+    let advancedSub = subreddit.split(/\s+/)
+    subreddit = advancedSub.shift()
+    advancedSub = advancedSub.join(' ')
+    if (advancedSub) {
+      let modeMatch = advancedSub.match(/day|week|month|year|all/)
+      let limitMatch = advancedSub.match(/[0-9]+/)
+      if (modeMatch) { mode = modeMatch[0]; isTopMode = true }
+      if (limitMatch) limit = parseInt(limitMatch[0])
+    }
 
     url.push(subreddit)
     if (isTopMode) url.push('/top')
     url.push('.json')
     url.push(`?limit=${limit}`)
-    if (isTopMode) url.push(`&sort=top&t=${mode.slice(4)}`)
+    if (isTopMode) url.push(`&sort=top&t=${mode}`)
 
     fetch(url.join(''))
       .then((data) => data.json())

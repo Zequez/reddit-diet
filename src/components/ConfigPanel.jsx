@@ -7,9 +7,9 @@ import HotSelect from './HotSelect'
 
 const MODES = {
   hot: 'Hot',
-  top_day: 'Top Day',
-  top_week: 'Top Week',
-  top_month: 'Top Month'
+  day: 'Top Day',
+  week: 'Top Week',
+  month: 'Top Month'
 }
 
 const HIDE_MODES = {
