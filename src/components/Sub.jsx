@@ -13,6 +13,25 @@ type Props = {
   readPostsMode: Boolean
 }
 
+function parseSub (sub) {
+  let data = {
+    subreddit: null,
+    limit: null,
+    mode: null
+  }
+  let advancedSub = sub.split(/\s+/)
+  data.subreddit = advancedSub.shift()
+  advancedSub = advancedSub.join(' ')
+  if (advancedSub) {
+    let modeMatch = advancedSub.match(/day|week|month|year|all/)
+    let limitMatch = advancedSub.match(/[0-9]+/)
+    if (modeMatch) data.mode = modeMatch[0]
+    if (limitMatch) data.limit = parseInt(limitMatch[0])
+  }
+
+  return data
+}
+
 export default class Sub extends React.Component {
   props: Props
 
@@ -31,20 +50,18 @@ export default class Sub extends React.Component {
     }
   }
 
+
+
   fetchPosts (props = this.props) {
     let { limit, mode, subreddit } = props
-    let isTopMode = !!~['day', 'week', 'month'].indexOf(mode)
     let url = ['https://www.reddit.com/r/']
 
-    let advancedSub = subreddit.split(/\s+/)
-    subreddit = advancedSub.shift()
-    advancedSub = advancedSub.join(' ')
-    if (advancedSub) {
-      let modeMatch = advancedSub.match(/day|week|month|year|all/)
-      let limitMatch = advancedSub.match(/[0-9]+/)
-      if (modeMatch) { mode = modeMatch[0]; isTopMode = true }
-      if (limitMatch) limit = parseInt(limitMatch[0])
-    }
+    let advancedSub = parseSub(subreddit)
+    subreddit = advancedSub.subreddit
+    limit = advancedSub.limit || limit
+    mode = advancedSub.mode || mode
+
+    let isTopMode = !!~['day', 'week', 'month', 'year', 'all'].indexOf(mode)
 
     url.push(subreddit)
     if (isTopMode) url.push('/top')
@@ -86,13 +103,20 @@ export default class Sub extends React.Component {
       [th.__allRead]: allRead
     })
 
+    let advancedSub = parseSub(subreddit)
+
     return (
       <li className={classNames}>
         <h3 onClick={this.clickTitle}>
           <span className={th.__titleIcon}>
             {allRead ? (forceShow ? '-' : '+') : '○'}
           </span>
-          /r/{subreddit}
+          /r/{advancedSub.subreddit}
+          &nbsp;
+          <span className={th.__titleSubRefine}>
+            {advancedSub.mode ? advancedSub.mode : null}
+            {advancedSub.limit ? ('#' + advancedSub.limit) : null}
+          </span>
         </h3>
         {!allRead || forceShow ? (
           <ul className={th.PostsList}>

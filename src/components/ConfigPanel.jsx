@@ -61,13 +61,6 @@ export default class ConfigPanel extends React.Component {
 
     return (
       <div className={th.ConfigPanel}>
-
-        <HotSelect
-          label='Posts'
-          options={MODES}
-          selected={mode}
-          onChange={(m) => this.props.onSettingChanges('mode', m)}/>
-
         <div className={th.__subs}>
           <div>Subs</div>
           <input
@@ -75,6 +68,21 @@ export default class ConfigPanel extends React.Component {
             value={this.state.subs}
             onChange={this.setSubs}
             onBlur={this.propagateSubs}/>
+        </div>
+
+        <HotSelect
+          label='Default Sort Mode'
+          options={MODES}
+          selected={mode}
+          onChange={(m) => this.props.onSettingChanges('mode', m)}/>
+
+        <div className={th.__postsPerSub}>
+          <div>Default Posts Per Sub</div>
+          <input
+            type='number'
+            value={postsPerSub}
+            onChange={this.setPostsPerSub}
+            onBlur={this.propagatePostsPerSub}/>
         </div>
 
         <HotSelect
@@ -91,14 +99,7 @@ export default class ConfigPanel extends React.Component {
           ({markedAsRead.length} posts marked as read)
         </div>
 
-        <div className={th.__postsPerSub}>
-          <div>Posts Per Sub</div>
-          <input
-            type='number'
-            value={postsPerSub}
-            onChange={this.setPostsPerSub}
-            onBlur={this.propagatePostsPerSub}/>
-        </div>
+
       </div>
     )
   }
