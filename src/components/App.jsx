@@ -13,7 +13,7 @@ export default class App extends Component {
       mode: 'top_week',
       readPostsMode: true,
       configVisible: true,
-      subs: ['argentina', 'worldnews', 'webdev'],
+      subs: ['argentina', 'worldnews day 5', 'EarthPorn+NaturePorn+SpacePorn', 'all', 'webdev month 10', 'javascript month 10'],
       markedAsRead: [],
       postsPerSub: 10
     },
