@@ -39,7 +39,6 @@ module.exports = {
   },
   plugins: [
       new HtmlWebpackPlugin({title: 'Reddit Diet', template: 'src/index.html'}),
-      new CleanWebpackPlugin(['dist'], {exclude: ['README.md', 'LICENSE', '.git', 'CNAME']}),
       new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin()
     ],
