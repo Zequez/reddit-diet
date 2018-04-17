@@ -23,7 +23,7 @@ function parseSub (sub) {
   data.subreddit = advancedSub.shift()
   advancedSub = advancedSub.join(' ')
   if (advancedSub) {
-    let modeMatch = advancedSub.match(/day|week|month|year|all/)
+    let modeMatch = advancedSub.match(/hot|day|week|month|year|all/)
     let limitMatch = advancedSub.match(/[0-9]+/)
     if (modeMatch) data.mode = modeMatch[0]
     if (limitMatch) data.limit = parseInt(limitMatch[0])
