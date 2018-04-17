@@ -37,7 +37,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "build": "webpack",
-    "deploy": "cd dist && git add -A && git commit -m 'Build `date`' && git push -u origin master",
+    "deploy": "cd dist && git add -A && git commit -m \"Build `date`\" && git push -u origin master",
     "test": ""
   }
 }
