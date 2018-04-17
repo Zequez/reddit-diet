@@ -62,7 +62,7 @@ export default class App extends Component {
             <button
               className={cx(th.Header__configButton, {toggled: settings.configVisible})}
               onClick={() => this.setSetting('configVisible', !settings.configVisible)}>
-              ⊛
+              <i className='fas fa-cog'></i>
             </button>
             <h1>Reddit Diet</h1>
           </div>

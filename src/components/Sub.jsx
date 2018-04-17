@@ -112,12 +112,14 @@ export default class Sub extends React.Component {
     })
 
     let advancedSub = parseSub(subreddit)
+    let titleIconClass = allRead ? (forceShow ? 'fa-minus' : 'fa-plus') : 'fa-eye'
+
 
     return (
       <li className={classNames}>
         <h3 onClick={this.toggleForceShow}>
-          <span className={th.__titleIcon}>
-            {allRead ? (forceShow ? '-' : '+') : '○'}
+          <span className={cx([th.__titleIcon, 'fas', titleIconClass])}>
+
           </span>
           /r/{advancedSub.subreddit}
           &nbsp;

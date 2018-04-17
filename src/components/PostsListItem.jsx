@@ -20,11 +20,13 @@ export default ({post, isRead, onSelect}) => {
     [th.__read]: isRead
   })
 
+  let hasValidThumbnail = post.thumbnail && post.thumbnail.startsWith('http')
+
   return (
     <li className={classNames} key={post.id}>
       <a href={post.url} onMouseDown={onMouseDown} onClick={onClickLink} target='_blank'>
         <div className={th.__img}>
-          {post.thumbnail ? <img src={post.thumbnail} alt='img'/> : null}
+          {hasValidThumbnail ? <img src={post.thumbnail} alt='img'/> : null}
         </div>
         <div className={th.__scores}>
           <div className={th.__score} title='Upvotes'>

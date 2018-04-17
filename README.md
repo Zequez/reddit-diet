@@ -8,4 +8,4 @@ you from binging!
 
 - It will be fresh with only new posts, the posts you've already seen will remain hidden
 - You can keep track of the top of the day/week/month # posts of your favorite subreddits
-- You can browse the posts in the comfort of Reddit Diet without switching pages (needs Reddit Diet Browser Extension)
+- You can browse the posts in the comfort of Reddit Diet without switching pages (needs [Reddit Diet Browser Extension](https://github.com/Zequez/reddit-diet-browser-extension))
