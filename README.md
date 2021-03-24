@@ -12,5 +12,5 @@ you from binging!
 
 # Access
 
-You can access Reddit Diet on the web at [redditdiet.zequez.com](https://redditdiet.zequez.com/),
+You can access Reddit Diet on the web at [redditdiet.zequez.space](https://redditdiet.zequez.space/),
 kindly statically hosted by Github Pages.
